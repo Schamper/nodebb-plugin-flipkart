@@ -26,17 +26,16 @@
 	Config.global = new Settings(Config.plugin.id, Config.plugin.version, Config.defaults);
 
 	Flipkart.load = function(app, middleware, controllers, callback) {
-		app.get('/admin' + Config.plugin.route, middleware.admin.buildHeader, function(req, res, next) {
+		function renderAdmin(req, res, next) {
 			res.render('flipkart/admin', {});
-		});
+		}
 
-		app.get('/api/admin' + Config.plugin.route, function(req, res, next) {
-			res.render('flipkart/admin', {});
-		});
+		app.get('/admin' + Config.plugin.route, middleware.admin.buildHeader, renderAdmin);
+		app.get('/api/admin' + Config.plugin.route, renderAdmin);
 
 		AdminSockets.flipkart = Config.sockets;
 
-		callback();
+		//callback();
 	};
 
 	Flipkart.addNavigation = function(custom_header, callback) {
