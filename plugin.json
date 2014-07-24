@@ -1,0 +1,15 @@
+{
+	"id": "nodebb-plugin-flipkart",
+	"name": "Flipkart affiliate links",
+	"description": "Make all the flipkart links an affiliate link!",
+	"url": "https://github.com/Schamper/nodebb-plugin-affiliate",
+	"library": "./library.js",
+	"hooks": [
+		{ "hook": "filter:app.load", "method": "load" },
+		{ "hook": "filter:admin.header.build", "method": "addNavigation" },
+		{ "hook": "filter:post.parse", "method": "parse", "priority": 4 },
+		{ "hook": "filter:post.parseSignature", "method": "parse", "priority": 4 }
+	],
+	"templates": "./templates",
+	"minver": "0.5.0"
+}
