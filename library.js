@@ -58,12 +58,8 @@
 		if (match) {
 			urlObj = url.parse(match[0], true);
 
-			console.log(urlObj);
-
 			urlObj.query.affid = Config.global.get('affiliateID');
 			urlObj.search = '';
-
-			console.log(urlObj);
 
 			postContent = postContent.replace(regex, url.format(urlObj));
 		}
