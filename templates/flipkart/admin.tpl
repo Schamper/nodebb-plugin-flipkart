@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h1>Shoutbox</h1>
+        <h1>Flipkart</h1>
     </div>
 </div>
 
