@@ -14,8 +14,6 @@
 			route: '/flipkart'
 		},
 		defaults: {
-			domain: '',
-			parameter: '',
 			affiliateID: ''
 		},
 		sockets: {
@@ -51,13 +49,11 @@
 	};
 
 	Flipkart.parse = function(postContent, callback) {
-		var regexString = '(<a href=")((?:https?:\\/\\/)?(?:www\\.)?(?:<domain>)(?:\\S*)?)(">)',
-			domain = (url.parse(Config.global.get('domain')).hostname || Config.global.get('domain')).replace('.', '\\.'),
-			regex = new RegExp(regexString.replace('<domain>', domain), 'g'),
+		var regex = /(<a href=")((?:https?:\/\/)?(?:www\.)?(?:flipkart\.com)(?:\S*)?)(">)/g,
 			match = regex.exec(postContent);
 
 		if (match) {
-			var parameter = Config.global.get('parameter'),
+			var parameter = 'affid',
 				urlObj = url.parse(match[2], true);
 
 			urlObj.query[parameter] = Config.global.get('affiliateID');
