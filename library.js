@@ -14,6 +14,8 @@
 			route: '/flipkart'
 		},
 		defaults: {
+			domain: '',
+			parameter: '',
 			affiliateID: ''
 		},
 		sockets: {
@@ -27,7 +29,7 @@
 
 	Flipkart.load = function(app, middleware, controllers, callback) {
 		function renderAdmin(req, res, next) {
-			res.render('flipkart/admin', {});
+			res.render(Config.plugin.id + '/admin', {});
 		}
 
 		app.get('/admin' + Config.plugin.route, middleware.admin.buildHeader, renderAdmin);
@@ -49,18 +51,19 @@
 	};
 
 	Flipkart.parse = function(postContent, callback) {
-		var regex = /(?:https?:\/\/)?(?:www\.)?(?:flipkart\.com)(?:\S*)?/g,
-			match = postContent.match(regex),
-			sep,
-			urlObj;
+		var regexString = '(<a href=")((?:https?:\\/\\/)?(?:www\\.)?(?:<domain>)(?:\\S*)?)(">)',
+			domain = (url.parse(Config.global.get('domain')).hostname || Config.global.get('domain')).replace('.', '\\.'),
+			regex = new RegExp(regexString.replace('<domain>', domain), 'g'),
+			match = regex.exec(postContent);
 
 		if (match) {
-			urlObj = url.parse(match[0], true);
+			var parameter = Config.global.get('parameter'),
+				urlObj = url.parse(match[2], true);
 
-			urlObj.query.affid = Config.global.get('affiliateID');
+			urlObj.query[parameter] = Config.global.get('affiliateID');
 			urlObj.search = '';
 
-			postContent = postContent.replace(regex, url.format(urlObj));
+			postContent = postContent.replace(regex, '$1' + url.format(urlObj) + '$3');
 		}
 
 		callback(null, postContent);

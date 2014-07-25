@@ -15,8 +15,18 @@
             <hr>
 
             <div class="form-group">
+                <label for="domainInput">Hostname</label>
+                <input type="text" class="form-control" id="domainInput" data-key="domain" placeholder="hostname.com">
+            </div>
+
+            <div class="form-group">
+                <label for="parameterInput">URL parameter</label>
+                <input type="text" class="form-control" id="parameterInput" data-key="parameter" placeholder="affid">
+            </div>
+
+            <div class="form-group">
                 <label for="affiliateInput">Affiliate ID</label>
-                <input type="text" class="form-control" id="affiliateInput" data-key="affiliateID">
+                <input type="text" class="form-control" id="affiliateInput" data-key="affiliateID" placeholder="">
             </div>
         </div>
     </form>

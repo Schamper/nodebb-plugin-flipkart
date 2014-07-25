@@ -1,6 +1,6 @@
 {
     "name": "nodebb-plugin-flipkart",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "NodeBB Flipkart affiliate plugin",
     "main": "library.js",
     "scripts": {
